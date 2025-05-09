@@ -474,8 +474,8 @@ export default function EnhancedGlobe({ countries }: { countries: CountryData[] 
         {/* Controls for rotating and zooming */}
         <OrbitControls
           enablePan={false}
-          minDistance={150}
-          maxDistance={1000} // Increased but still less than background sphere radius
+          minDistance={105}
+          maxDistance={300}
           rotateSpeed={0.5}
           zoomSpeed={0.5}
           makeDefault
