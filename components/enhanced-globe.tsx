@@ -262,11 +262,12 @@ function Earth({
   const countryRefs = useRef<{ [key: string]: THREE.Group | null }>({})
 
   // Load earth textures
-  const [albedoMap, bumpMap, oceanMap, cloudsMap] = useTexture([
+  const [albedoMap, bumpMap, oceanMap, cloudsMap, nightLightMap] = useTexture([
     "/albedo.jpg",
     "/bump.jpg",
     "/ocean.png",
     "/clouds.png",
+    "/night_lights.png",
   ])
 
   // Set up textures
@@ -275,10 +276,10 @@ function Earth({
     albedoMap.colorSpace = THREE.SRGBColorSpace
 
     // Set wrapping and repeat
-    ;[albedoMap, bumpMap, oceanMap, cloudsMap].forEach((texture) => {
+    ;[albedoMap, bumpMap, oceanMap, cloudsMap, nightLightMap].forEach((texture) => {
       texture.wrapS = texture.wrapT = THREE.RepeatWrapping
     })
-  }, [albedoMap, bumpMap, oceanMap, cloudsMap])
+  }, [albedoMap, bumpMap, oceanMap, cloudsMap, nightLightMap])
 
   // Set initial camera position
   useEffect(() => {
@@ -355,6 +356,9 @@ function Earth({
           roughness={1}
           metalness={0.1}
           metalnessMap={oceanMap}
+          emissiveMap={nightLightMap}
+          emissive={sunlightEnabled ? 0xffff88 : 0x000000}
+          emissiveIntensity={0.3} // Reduced emissive strength
         />
       </mesh>
 
