@@ -32,14 +32,13 @@ export default function EnhancedPage() {
         if (!response2.ok) {
           throw new Error("Failed to fetch countries")
         }
-        // merge the two responses
+        // merge the two responses using cca3 as the key
         const data2 = await response2.json()
-        const mergedData = data.map((country: any, index: string | number) => ({
-          ...country,
-          ...data2[index],
-        }))
-
-        setCountries(data)
+        const mergedData = data.map((country: any) => {
+          const additionalData = data2.find((c: any) => c.cca3 === country.cca3)
+          return { ...country, ...additionalData }
+        })
+        setCountries(mergedData)
       } catch (error) {
         console.error("Error fetching countries:", error)
       } finally {
