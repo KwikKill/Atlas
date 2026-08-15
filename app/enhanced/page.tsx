@@ -22,23 +22,12 @@ export default function EnhancedPage() {
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const response = await fetch("https://restcountries.com/v3.1/all?fields=name,cca3,latlng,capital,population,region,subregion,flag,flags,currencies")
+        const response = await fetch("/api/countries")
         if (!response.ok) {
           throw new Error("Failed to fetch countries")
         }
         const data = await response.json()
-
-        const response2 = await fetch("https://restcountries.com/v3.1/all?fields=name,languages,borders,area,maps,timezones")
-        if (!response2.ok) {
-          throw new Error("Failed to fetch countries")
-        }
-        // merge the two responses using cca3 as the key
-        const data2 = await response2.json()
-        const mergedData = data.map((country: any) => {
-          const additionalData = data2.find((c: any) => c.cca3 === country.cca3)
-          return { ...country, ...additionalData }
-        })
-        setCountries(mergedData)
+        setCountries(data)
       } catch (error) {
         console.error("Error fetching countries:", error)
       } finally {
