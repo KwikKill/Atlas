@@ -1,0 +1,15 @@
+services:
+  atlas:
+    build:
+      context: ./atlas
+      dockerfile: Dockerfile.dev
+    container_name: atlas
+    image: site/atlas
+    env_file:
+      - ./atlas/.env
+    volumes:
+      - ./atlas:/src
+    expose:
+      - "3000"
+    networks:
+      - sites
