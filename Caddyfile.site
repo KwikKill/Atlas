@@ -1,0 +1,3 @@
+atlas.somi.{$WEBSITE_HOST} {
+	reverse_proxy atlas:3000
+}

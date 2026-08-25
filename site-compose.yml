@@ -1,0 +1,14 @@
+services:
+  atlas:
+    build:
+      context: ./atlas
+      dockerfile: Dockerfile
+    container_name: atlas
+    image: site/atlas
+    env_file:
+      - ./atlas/.env
+    expose:
+      - "3000"
+    networks:
+      - sites
+    restart: unless-stopped
